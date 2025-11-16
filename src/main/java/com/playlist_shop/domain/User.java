@@ -1,10 +1,7 @@
 package com.playlist_shop.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
@@ -24,4 +21,11 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String mail;
+
+    @Builder
+    public User(String nickname, String password, String mail) {
+        this.nickname = nickname;
+        this.password = password;
+        this.mail = mail;
+    }
 }
