@@ -13,6 +13,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
     @GetMapping("/join")
     public String joinPage() {
         return "joinForm";

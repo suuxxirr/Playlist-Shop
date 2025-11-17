@@ -6,25 +6,40 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration // 이 파일이 설정 파일임을 알려줍니다.
-@EnableWebSecurity // 스프링 시큐리티 활성화
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/**").permitAll() // "/**"는 모든 요청을 의미, .permitAll()은 모두 허용
+                        .requestMatchers("/login", "/join", "/", "/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(formLogin -> formLogin.disable()) // 기본 폼 로그인 비활성화
-                .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화 (개발 편의를 위해)
+
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login-process") //로그인을 시도하는 경로
+                        .defaultSuccessUrl("/") //로그인 성공 후 이동 경로
+                        .permitAll()
+                )
+
+
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                )
+
+
+                .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // H2 콘솔사용
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 );
 
         return http.build();

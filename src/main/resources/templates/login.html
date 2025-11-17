@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+<h1>로그인</h1>
+
+<form action="/login-process" method="post">
+    <div>
+        <label for="username">닉네임:</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+        <label for="password">비밀번호:</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <button type="submit">로그인</button>
+</form>
+
+<hr>
+<p>계정이 없으신가요? <a href="/join">회원가입</a></p>
+</body>
+</html>
