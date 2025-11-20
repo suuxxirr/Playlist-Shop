@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Playlist Shop</title>
+</head>
+<body>
+<h1>🎵 Playlist Shop 🎵</h1>
+<hr>
+
+<div sec:authorize="isAnonymous()"> <!-- 익명 사용자에게만 표시 -->
+    <button onclick="location.href='/login'">로그인</button>
+    <button onclick="location.href='/join'">회원가입</button>
+</div>
+
+<div sec:authorize="isAuthenticated()"> <!-- 인증된 사용자에게만 표시 -->
+    <h3>
+        <span sec:authentication="name">사용자</span>님, 환영합니다
+    </h3>
+
+    <button onclick="location.href='/logout'">로그아웃</button>
+</div>
+
+<hr>
+<h2>최신 음악 목록</h2>
+</body>
+</html>
