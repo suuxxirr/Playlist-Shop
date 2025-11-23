@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +31,13 @@ public class Song {
     private String album;
     private String albumartUrl;
 
+    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+    private List<SongLike> likes = new ArrayList<>();
+
+    public int getLikeCount() {
+        return likes.size();
+    }
+
     @Builder
     public Song(String title, String artist, Integer price, LocalDate releaseDate, String album, String albumartUrl) {
         this.title = title;
@@ -38,5 +47,6 @@ public class Song {
         this.album = album;
         this.albumartUrl = albumartUrl;
     }
+
 
 }
