@@ -2,6 +2,7 @@ package com.playlist_shop.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,5 +23,11 @@ public class CartSong {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id")
     private Song song;
+
+    @Builder
+    public CartSong(Cart cart, Song song) {
+        this.cart = cart;
+        this.song = song;
+    }
 
 }
