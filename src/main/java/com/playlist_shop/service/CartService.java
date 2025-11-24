@@ -29,6 +29,7 @@ public class CartService {
                         .orElseThrow(() -> new IllegalArgumentException("해당 노래를 찾을 수 없습니다."));
 
         if (cartSongRepository.findByCartAndSong(cart, song).isPresent()) { // 이미 장바구니에 담겨있는 경우
+            System.out.println("이미 담겨있는 노래입니다.");
             return;
         }
 
