@@ -50,6 +50,10 @@
                                 th:onclick="|location.href='@{/like/{id}(id=${song.id})}'|">
                             ❤️ <span th:text="${song.likeCount}">0</span>
                         </button>
+                        <button class="btn btn-sm btn-primary"
+                                th:onclick="|location.href='@{/cart/add/{id}(id=${song.id})}'|">
+                            Playlist 담기
+                        </button>
                         <a href="#" class="btn btn-sm btn-outline-primary">상세보기</a>
                     </div>
                 </div>
