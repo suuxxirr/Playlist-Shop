@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>내 장바구니</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        /* 앨범아트 스타일 */
+        .album-art-container {
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .album-art-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 삭제 버튼 스타일 */
+        .btn-delete-x {
+            font-size: 2rem;
+            color: #0d3b66;
+            font-weight: bold;
+            line-height: 0.7;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-delete-x:hover {
+            color: #dc3545;
+        }
+
+        /* 카드 스타일 */
+        .cart-item-card {
+            border: 2px solid #e9ecef;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s; /* 마우스 올렸을 때 살짝 움직이는 효과 */
+        }
+        .cart-item-card:hover {
+            transform: translateY(-3px); /* 살짝 위로 뜸 */
+        }
+
+        /* 가격을 오른쪽 아래에 고정하기 위한 스타일 */
+        .price-tag {
+            position: absolute; /* 절대 위치 지정 */
+            bottom: 20px;       /* 바닥에서 20px 띄움 */
+            right: 25px;        /* 오른쪽에서 25px 띄움 */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container">
+        <a class="navbar-brand" href="/">Playlist Shop</a>
+        <div class="d-flex text-white align-items-center">
+            <span class="me-3"><span sec:authentication="name" class="fw-bold text-warning">User</span>님 환영합니다!</span>
+            <button class="btn btn-outline-light btn-sm" onclick="location.href='/'">계속 쇼핑하기</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container mb-5">
+    <h2 class="mb-4 fw-bold text-center">My Playlist</h2>
+
+    <div th:if="${#lists.isEmpty(cartList)}" class="alert alert-secondary text-center py-5">
+        <h4>장바구니가 비어있습니다.</h4>
+        <p>마음에 드는 노래를 담아보세요!</p>
+        <a href="/" class="btn btn-primary mt-3">노래 담으러 가기</a>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(cartList)}" class="row justify-content-center">
+
+        <div class="col-lg-7 col-md-9">
+
+            <div th:each="cartSong : ${cartList}" class="card cart-item-card mb-4 position-relative">
+
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-start border-bottom-0 pb-0 pt-3 px-4">
+                    <span class="text-muted fw-bold text-decoration-underline fs-5"
+                          th:text="${cartSong.song.album}">앨범명</span>
+
+                    <a class="btn-delete-x" onclick="alert('삭제 기능 준비 중입니다!')">
+                        <i class="bi bi-x"></i>
+                    </a>
+                </div>
+
+                <div class="card-body px-4 pb-4 pt-2">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-4">
+                            <div class="album-art-container shadow-sm">
+                                <img th:src="${cartSong.song.albumartUrl}" alt="앨범아트">
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-1 pb-3"> <h3 class="fw-bold mb-1" th:text="${cartSong.song.title}">곡 제목</h3>
+                            <p class="text-muted fs-5 mb-0" th:text="${cartSong.song.artist}">가수</p>
+                        </div>
+                    </div>
+
+                    <div class="price-tag">
+                        <span class="fs-4 fw-bold text-primary"
+                              th:text="|${cartSong.song.price}원|">500원</span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end align-items-center mt-5 p-4 border rounded-3 bg-light shadow-sm">
+                <div class="text-end me-4">
+                    <p class="mb-1 text-muted">총 주문금액</p>
+                    <h3 class="mb-0 text-dark fw-bold">
+                        <span th:text="얼마일까요ㅎ"></span>원
+                    </h3>
+                </div>
+                <button class="btn btn-lg btn-primary px-5 py-3 fw-bold">구매하기</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
