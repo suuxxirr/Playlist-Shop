@@ -24,6 +24,9 @@
                 <button class="btn btn-warning" onclick="location.href='/join'">회원가입</button>
             </div>
             <div sec:authorize="isAuthenticated()">
+                <button class="btn btn-outline-success btn-sm me-2" onclick="location.href='/cart'">
+                    Playlist
+                </button>
                 <span class="me-3"><span sec:authentication="name" class="fw-bold text-warning">User</span>님 환영합니다!</span>
                 <button class="btn btn-outline-light btn-sm" onclick="location.href='/logout'">로그아웃</button>
             </div>

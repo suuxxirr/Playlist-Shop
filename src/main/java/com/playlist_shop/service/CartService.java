@@ -47,8 +47,12 @@ public class CartService {
     @Transactional
     public List<CartSong> userCartView(User user) {
         Cart cart = cartRepository.findByUser(user);
-        List<CartSong> cartSongs = cartSongRepository.findByCart(cart);
 
-        return cartSongs;
+        return cartSongRepository.findByCart(cart);
+    }
+
+    @Transactional
+    public void deleteCartSong(Long cartSongId) {
+        cartSongRepository.deleteById(cartSongId);
     }
 }

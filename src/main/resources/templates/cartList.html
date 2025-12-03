@@ -67,7 +67,7 @@
     <h2 class="mb-4 fw-bold text-center">My Playlist</h2>
 
     <div th:if="${#lists.isEmpty(cartList)}" class="alert alert-secondary text-center py-5">
-        <h4>장바구니가 비어있습니다.</h4>
+        <h4>플레이리스트가 비어있습니다.</h4>
         <p>마음에 드는 노래를 담아보세요!</p>
         <a href="/" class="btn btn-primary mt-3">노래 담으러 가기</a>
     </div>
@@ -82,7 +82,7 @@
                     <span class="text-muted fw-bold text-decoration-underline fs-5"
                           th:text="${cartSong.song.album}">앨범명</span>
 
-                    <a class="btn-delete-x" onclick="alert('삭제 기능 준비 중입니다!')">
+                    <a class="btn-delete-x" th:onclick="|location.href='@{/cart/delete/{id}(id=${cartSong.id})}'|">
                         <i class="bi bi-x"></i>
                     </a>
                 </div>
