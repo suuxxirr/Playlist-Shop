@@ -1,7 +1,9 @@
 package com.playlist_shop;
 
 import com.playlist_shop.domain.Song;
+import com.playlist_shop.domain.User;
 import com.playlist_shop.repository.SongRepository;
+import com.playlist_shop.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,7 @@ import java.util.List;
 public class SongInitializer {
 
     private final SongRepository songRepository;
+    private final UserRepository userRepository;
 
 
     // 샘플 데이터 삽입
