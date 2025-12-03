@@ -18,4 +18,10 @@ public class SongService {
     public List<Song> findAllSongs() {
         return songRepository.findAll();
     }
+
+    @Transactional
+    public Song getSong(Long songId) {
+        return songRepository.findById(songId)
+                .orElseThrow(() -> new IllegalArgumentException("노래를 찾을 수 없습니다."));
+    }
 }

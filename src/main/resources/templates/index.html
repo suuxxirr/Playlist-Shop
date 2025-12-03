@@ -41,7 +41,9 @@
 
         <div class="col" th:each="song : ${songs}">
             <div class="card h-100 shadow-sm">
-                <img th:src="${song.albumartUrl}" class="card-img-top" alt="앨범아트">
+                <a th:href="@{/song/{id}(id=${song.id})}">
+                    <img th:src="${song.albumartUrl}" class="card-img-top" alt="앨범아트"
+                         style="cursor: pointer;"> </a>
 
                 <div class="card-body">
                     <h5 class="card-title" th:text="${song.title}">노래 제목</h5>

@@ -22,7 +22,7 @@ public class SongLikeService {
     public void actionLike(User user, Long songId) {
 
         Song song = songRepository.findById(songId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 노래를 찾을 수 업습니다"));
+                .orElseThrow(() -> new IllegalArgumentException("해당 노래를 찾을 수 없습니다."));
 
         Optional<SongLike> songLikeOptional = songLikeRepository.findByUserAndSong(user, song);
 

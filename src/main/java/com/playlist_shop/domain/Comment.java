@@ -2,6 +2,7 @@ package com.playlist_shop.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,4 +32,14 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id")
     private Song song;
+
+    @Builder
+    public Comment(String content, User user, Song song, Integer rating) {
+        this.content = content;
+        this.user = user;
+        this.song = song;
+        this.rating = rating;
+        this.createdAt =LocalDateTime.now();
+        this.likes = 0;
+    }
 }
