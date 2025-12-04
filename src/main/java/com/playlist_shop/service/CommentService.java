@@ -51,4 +51,18 @@ public class CommentService {
         return commentRepository.findBySong(song);
     }
 
+    // 댓글 삭제
+    @Transactional
+    public void deleteComment(Long commentId, String username) {
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
+
+        if (!comment.getUser().getUsername().equals(username)) {
+            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+        }
+
+        commentRepository.delete(comment);
+    }
+
 }
