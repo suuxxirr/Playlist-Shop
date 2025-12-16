@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Melon Clone - Playlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">Melon Clone</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">홈</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cart">장바구니</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold">🎧 유저들의 플레이리스트</h2>
+            <p class="text-muted">다른 사람들은 어떤 노래를 듣고 있을까요?</p>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="playlist : ${playlists}">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-gradient bg-primary text-white text-center py-4">
+                    <i class="bi bi-music-note-beamed fs-1"></i>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" th:text="${playlist.title}">플레이리스트 제목</h5>
+
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <i class="bi bi-person-circle"></i>
+                        <span th:text="${playlist.user.nickname}">작성자</span>
+                    </h6>
+
+                    <p class="card-text mt-3 text-secondary"
+                       th:text="${playlist.description}">
+                        여기에 설명이 들어갑니다.
+                    </p>
+                </div>
+
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center pb-3">
+                    <span class="badge bg-secondary rounded-pill">
+                        <i class="bi bi-music-note-list"></i>
+                        <span th:text="${#lists.size(playlist.playlistSongs)}">0</span>곡
+                    </span>
+
+                    <a href="#" class="btn btn-sm btn-outline-primary">
+                        구경하기 <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5" th:if="${playlists.isEmpty()}">
+        <div class="col text-center">
+            <div class="alert alert-light" role="alert">
+                아직 등록된 플레이리스트가 없어요. 첫 번째 주인공이 되어보세요! 🚀
+            </div>
+            <a href="/cart" class="btn btn-primary">만들러 가기</a>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
