@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -56,6 +57,15 @@ public class CartController {
     @GetMapping("/cart/delete/{cartSongId}") // 장바구니에서 노래 삭제
     public String deleteSong(@PathVariable Long cartSongId) {
         cartService.deleteCartSong(cartSongId);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/add/playlist/{id}") // 플레이리스트 노래를 장바구니로 가져오기
+    public String addPlaylistToCart(@PathVariable Long id,
+                                    @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userRepository.findByNickname(userDetails.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다"));
+        cartService.addPlaylistToCart(user, id);
         return "redirect:/cart";
     }
 }

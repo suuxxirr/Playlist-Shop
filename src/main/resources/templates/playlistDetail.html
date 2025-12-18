@@ -23,11 +23,17 @@
             <p class="lead" th:text="${playlist.description}">플레이리스트 설명이 여기에 나옵니다.</p>
 
             <hr class="my-4">
-
             <div class="d-flex gap-2">
                 <a href="/playlist" class="btn btn-outline-secondary">
                     <i class="bi bi-arrow-left"></i> 목록으로
                 </a>
+
+                <form sec:authorize="isAuthenticated()"
+                      th:action="@{/cart/add/playlist/{id}(id=${playlist.id})}" method="post">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-cart-plus"></i> 전체 담기
+                    </button>
+                </form>
             </div>
         </div>
     </div>

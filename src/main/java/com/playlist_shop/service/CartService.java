@@ -1,12 +1,7 @@
 package com.playlist_shop.service;
 
-import com.playlist_shop.domain.Cart;
-import com.playlist_shop.domain.CartSong;
-import com.playlist_shop.domain.Song;
-import com.playlist_shop.domain.User;
-import com.playlist_shop.repository.CartRepository;
-import com.playlist_shop.repository.CartSongRepository;
-import com.playlist_shop.repository.SongRepository;
+import com.playlist_shop.domain.*;
+import com.playlist_shop.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +16,7 @@ public class CartService {
     private final SongRepository songRepository;
     private final CartRepository cartRepository;
     private final CartSongRepository cartSongRepository;
+    private final PlaylistRepository playlistRepository;
 
     @Transactional
     public void addCart(User user, Long songId) {
@@ -56,6 +52,22 @@ public class CartService {
         cartSongRepository.deleteById(cartSongId);
     }
 
+    // 플레이리스트에 담긴 곡 장바구니로 가져오기
     @Transactional
+    public void addPlaylistToCart(User user, Long playlistId) {
+        Cart cart = cartRepository.findByUser(user);
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new IllegalArgumentException("플레이리스트가 없습니다."));
+
+        for (PlaylistSong ps : playlist.getPlaylistSongs()) {
+            Song song = ps.getSong();
+            CartSong cartSong = CartSong.builder()
+                    .cart(cart)
+                    .song(song)
+                    .build();
+            cartSongRepository.save(cartSong);
+        }
+
+    }
 
 }
