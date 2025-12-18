@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,5 +32,12 @@ public class PlaylistController {
         List<Playlist> playlists = playlistService.findAllPlaylists();
         model.addAttribute("playlists", playlists);
         return "playlistList";
+    }
+
+    @GetMapping("/playlist/{id}")
+    public String playlistDetail(@PathVariable Long id, Model model) {
+        Playlist playlist = playlistService.getPlaylist(id);
+        model.addAttribute("playlist", playlist);
+        return "playlistDetail";
     }
 }

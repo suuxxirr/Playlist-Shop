@@ -53,18 +53,19 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-    <div class="container">
-        <a class="navbar-brand" href="/">Playlist Shop</a>
-        <div class="d-flex text-white align-items-center">
-            <span class="me-3"><span sec:authentication="name" class="fw-bold text-warning">User</span>님 환영합니다!</span>
-            <button class="btn btn-outline-light btn-sm" onclick="location.href='/'">계속 쇼핑하기</button>
-        </div>
-    </div>
-</nav>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand" href="/">Playlist Shop</a>-->
+<!--        <div class="d-flex text-white align-items-center">-->
+<!--            <span class="me-3"><span sec:authentication="name" class="fw-bold text-warning">User</span>님 환영합니다!</span>-->
+<!--            <button class="btn btn-outline-light btn-sm" onclick="location.href='/'">계속 쇼핑하기</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container mb-5">
-    <h2 class="mb-4 fw-bold text-center">My Playlist</h2>
+    <h2 class="mb-4 fw-bold text-center">장바구니</h2>
 
     <div th:if="${#lists.isEmpty(cartList)}" class="alert alert-secondary text-center py-5">
         <h4>플레이리스트가 비어있습니다.</h4>
