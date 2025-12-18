@@ -15,24 +15,6 @@
 </head>
 <body>
 
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">-->
-<!--    <div class="container">-->
-<!--        <a class="navbar-brand" href="/">Playlist Shop</a>-->
-<!--        <div class="d-flex text-white align-items-center">-->
-<!--            <div sec:authorize="isAnonymous()">-->
-<!--                <button class="btn btn-outline-light me-2" onclick="location.href='/login'">로그인</button>-->
-<!--                <button class="btn btn-warning" onclick="location.href='/join'">회원가입</button>-->
-<!--            </div>-->
-<!--            <div sec:authorize="isAuthenticated()">-->
-<!--                <button class="btn btn-outline-success btn-sm me-2" onclick="location.href='/cart'">-->
-<!--                    장바구니-->
-<!--                </button>-->
-<!--                <span class="me-3"><span sec:authentication="name" class="fw-bold text-warning">User</span>님 환영합니다!</span>-->
-<!--                <button class="btn btn-outline-light btn-sm" onclick="location.href='/logout'">로그아웃</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</nav>-->
 <div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container">

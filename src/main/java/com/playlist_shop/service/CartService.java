@@ -55,4 +55,7 @@ public class CartService {
     public void deleteCartSong(Long cartSongId) {
         cartSongRepository.deleteById(cartSongId);
     }
+
+    @Transactional
+
 }
