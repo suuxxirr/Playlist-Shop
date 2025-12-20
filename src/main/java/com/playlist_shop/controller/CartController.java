@@ -37,7 +37,7 @@ public class CartController {
 
         cartService.addCart(user, songId);
 
-        return "redirect:/";
+        return "redirect:/song/" + songId;
     }
 
     @GetMapping("/cart")
