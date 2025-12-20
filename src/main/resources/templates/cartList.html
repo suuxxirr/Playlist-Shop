@@ -46,7 +46,31 @@
             right: 25px;        /* 오른쪽에서 25px 띄움 */
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
+<script> /* html2canvas */
+    function saveAsImage() {
+        const element = document.getElementById('capture-area');
+
+        html2canvas(element, {
+            useCORS: true,
+            scale: 2,
+            backgroundColor: "#ffffff"
+        }).then(canvas => {
+            // 캡처된 canvas를 이미지 URL로 변환
+            const imageUri = canvas.toDataURL("image/png");
+
+            // 가상의 링크를 만들어 다운로드 실행
+            const link = document.createElement("a");
+            link.href = imageUri;
+            link.download = "playlist_receipt.png"; // 저장될 파일명
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+</script>
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
@@ -62,7 +86,7 @@
 
     <div th:unless="${#lists.isEmpty(cartList)}" class="row justify-content-center">
 
-        <div class="col-lg-7 col-md-9">
+        <div class="col-lg-7 col-md-9" id = "capture-area">
 
             <div th:each="cartSong : ${cartList}" class="card cart-item-card mb-4 position-relative">
 
@@ -102,8 +126,9 @@
                     </h3>
                 </div>
 
-                <div class="d-flex gap-2">
-                    <button class="btn btn-lg btn-primary fw-bold px-4">구매하기</button>
+                <div class="d-flex gap-2" data-html2canvas-ignore="true">
+                    <button onclick="saveAsImage()"
+                            class="btn btn-lg btn-primary fw-bold px-4">이미지로 저장</button>
                     <button type="button" class="btn btn-lg btn-success fw-bold px-4" data-bs-toggle="modal" data-bs-target="#playlistModal">
                         플레이리스트로 저장
                     </button>
