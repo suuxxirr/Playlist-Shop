@@ -17,7 +17,17 @@
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
+<div class="container mt-4">
 
+    <form action="/" method="get" class="d-flex mb-4 gap-2">
+        <input class="form-control me-2" type="search" name="keyword"
+               placeholder="가수나 노래 제목을 입력하세요" aria-label="Search"
+               th:value="${keyword}"> <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+    </div>
+
+</div>
 <div class="container py-5">
     <h2 class="mb-4 fw-bold">추천 음악 목록</h2>
 
