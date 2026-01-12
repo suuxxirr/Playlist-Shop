@@ -43,7 +43,6 @@ public class Song {
         this.title = title;
         this.artist = artist;
         this.price = price;
-        this.releaseDate = releaseDate;
         this.album = album;
         this.albumartUrl = albumartUrl;
     }

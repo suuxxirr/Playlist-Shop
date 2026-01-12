@@ -24,4 +24,18 @@ public class SongService {
         return songRepository.findById(songId)
                 .orElseThrow(() -> new IllegalArgumentException("노래를 찾을 수 없습니다."));
     }
+
+    @Transactional
+    public void createSong(String title, String artist, String album, String albumImage) {
+
+        Song song = Song.builder()
+                .title(title)
+                .artist(artist)
+                .album(album)
+                .albumartUrl(albumImage)
+                .price(1000)
+                .build();
+
+        songRepository.save(song);
+    }
 }

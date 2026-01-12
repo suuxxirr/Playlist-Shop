@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,20 +30,52 @@ class UserServiceTest {
     @Test
     @DisplayName("회원가입 성공적으로 수행")
     void join_success() {
-        //Given
+        // Given
         UserJoinRequestDto requestDto = new UserJoinRequestDto();
         requestDto.setNickname("testUser");
         requestDto.setPassword("test123!");
         requestDto.setMail("test@example.com");
 
-        //When
+        // When
         Long savedUserId = userService.join(requestDto);
 
-        //Then
+        // Then
         User savedUser = userRepository.findById(savedUserId).orElseThrow();
         assertThat(savedUser.getNickname()).isEqualTo("testUser");
         assertThat(savedUser.getPassword()).isNotEqualTo("test123!");
         assertThat(passwordEncoder.matches("test123!", savedUser.getPassword())).isTrue();
+    }
+
+    @Test
+    @DisplayName("회원가입 닉네임 중복으로 실패")
+    void join_fail(){
+        // Given
+        User user = makeAndSaveUser();
+
+        // user2
+        UserJoinRequestDto requestDto2 = new UserJoinRequestDto();
+        requestDto2.setNickname("testUser"); // 닉네임 중복
+        requestDto2.setPassword("testpassword");
+        requestDto2.setMail("test2@example.com");
+
+        // When
+        Long user2_Id = userService.join(requestDto2);
+
+        // Then
+        assertThat(userRepository.findAll().size()).isEqualTo(2);
+
+
+    }
+
+    private User makeAndSaveUser() {
+        UserJoinRequestDto requestDto = new UserJoinRequestDto();
+        requestDto.setNickname("testUser");
+        requestDto.setPassword("test123!");
+        requestDto.setMail("test@example.com");
+
+        Long savedUserId = userService.join(requestDto);
+        return userRepository.findById(savedUserId).orElseThrow();
+
     }
 
 }

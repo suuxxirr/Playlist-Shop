@@ -25,6 +25,8 @@ public class UserService {
                 .mail(requestDto.getMail())
                 .build();
 
+
+
         User savedUser = userRepository.save(user);
 
         // 카트 생성해서 할당

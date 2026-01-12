@@ -19,7 +19,7 @@ public class SongInitializer {
     private final SongRepository songRepository;
     private final UserRepository userRepository;
 
-
+    /*
     // 샘플 데이터 삽입
     @PostConstruct
     public void initSongData() {
@@ -71,4 +71,6 @@ public class SongInitializer {
 
     }
 
+
+     */
 }
